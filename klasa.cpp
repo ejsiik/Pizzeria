@@ -20,7 +20,7 @@ public:
 
 Pizzeria* DodajZamowienie(Pizzeria*& head, string pizza, double cena, bool czyNaWynos, string adres, int& nr2) {
 	nr2++;
-	plik(pizza, cena, czyNaWynos, adres);
+	plik(nr2, pizza, cena, czyNaWynos, adres);
 	if (head == nullptr){ //jesli klasa nie zawiera zadnych danych
 		head = new Pizzeria{ pizza, cena, czyNaWynos, adres, nr2 };
 		cout << "\t\tZamowienie " << pizza << " zostalo dodane do bazy danych " << "\n";
@@ -108,6 +108,12 @@ void pause()
 	cin.ignore(1000, '\n');
 }
 
+void blad() {
+	cout << "\n\n\n\n\t\t\tBLAD, PODAJ POPRAWNA WARTOSC";
+	Sleep(2000);
+	system("cls");
+}
+
 void login()
 {
 	system("cls");
@@ -170,12 +176,12 @@ menu:
 	}
 }
 
-void plik(string pizza, double cena, bool czyNaWynos, string adres) {
+void plik(int nr2, string pizza, double cena, bool czyNaWynos, string adres) {
 	fstream plik; //dopisanie do konca pliku danych kolejnego zamowienia
 	plik.open("pizzeria.txt", ios::out | ios::app);
 	if (plik.is_open())
 	{
-		plik << "Pizza: " << setw(4) << setfill(' ') << pizza << " ||" << setw(8) << setfill(' ')
+		plik << nr2<< ". Pizza: " << setw(4) << setfill(' ') << pizza << " ||" << setw(8) << setfill(' ')
 			<< " cena: " << setw(16) << setfill(' ') << cena << " ||" << setw(8) << setfill(' ') << "gdzie: ";
 		if (czyNaWynos == 1) {
 			plik << " na miejscu \n";
@@ -235,15 +241,19 @@ void usun(Pizzeria*& head, int& nr_zam) {
 void wypisz(Pizzeria* head) {
 	if (head == nullptr)
 		cout << "\t\tBrak zamowien\n";
-	else
-	{
+	else{
 		int ilosc{};
 		cout << "\t\tDzisiejsze zamowienia:\n\n";
-		while (head)
-		{
-			cout << "\t\tPizza: " << setw(4) << setfill(' ') << head->pizza << " ||" << setw(8) << setfill(' ') << " cena: " << setw(16) << setfill(' ') << head->cena
-				<< " ||" << setw(8) << setfill(' ') << " gdzie: " << setw(16) << setfill(' ') << head->czyNaWynos << " ||" << setw(9) << setfill(' ')
-				<< "adres: " << setw(10) << setfill(' ') << head->adres << "\n";
+		while (head){
+			cout << "\t\t" << head->nr_zam << ". Pizza: " << setw(4) << setfill(' ') << head->pizza << " ||" << setw(8) << setfill(' ') << " cena: " << setw(16) << setfill(' ') << head->cena
+				<< " ||" << setw(8) << setfill(' ') << " gdzie: ";
+			if (head->czyNaWynos == 0) {
+				cout << setw(8) << setfill(' ') << "na miejscu \n";
+			}
+			else {
+				cout << setw(8) << setfill(' ') << "na wynos ||" << setw(9) << setfill(' ')
+					<< "adres: " << setw(10) << setfill(' ') << head->adres << "\n";
+			}
 			head = head->nastepny;
 			ilosc++;
 		}
