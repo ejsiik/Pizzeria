@@ -39,6 +39,9 @@ int main()
 
     while (programotwarty == true)
     {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        system("cls");
         cout << "\n\n\t\t====== SYSTEM OBSLUGI PIZZERII ======\n\n";
         cout << "\t\t" << setw(50) << setfill('=') << "=\n\n";
         cout << "\t\t1. DODAJ ZAMOWIENIE\n\n";
@@ -50,19 +53,37 @@ int main()
         cout << "\t\tTWOJ WYBOR: ";
 		getline(cin, opcja);
 		system("cls");
-        if (opcja[0] == '1')
+        if (opcja.size()>1) {
+            blad();            
+        }
+        else if (opcja[0] == '1')
         {
-            cout << "pizza: ";
+            cout << "\t\tPizza: ";
             getline(cin,pizza);
-            cout << "cena :";
+            cout << "\t\tCena :";
             cin >> cena;
-            cout << "na wynos? (0 - nie, 1 - tak): ";
+            while (cin.fail()) { //1.a blad
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"\t\t\tBLAD, PODAJ POPRAWNA WARTOSC\n";
+                cout << "\t\tCena :";
+                cin >> cena;
+            }
+            cout << "\t\tNa wynos? (0 - nie, 1 - tak): ";
             cin >> wynos;
-            cout << "adres: ";
-            cin.ignore();
-            getline(cin,adres);
+            while (cin.fail()) { //1.a blad
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "\t\t\tBLAD, PODAJ POPRAWNA WARTOSC\n";
+                cout << "\t\tNa wynos? (0 - nie, 1 - tak): ";
+                cin >> wynos;
+            }
+            if (wynos==1) {
+                cout << "\t\tAdres: ";
+                cin.ignore();
+                getline(cin, adres);
+            }
             DodajZamowienie(head, pizza, cena, wynos, adres, nr2);
-            system("cls");
         }
         else if (opcja[0] == '2')
         {
@@ -70,7 +91,6 @@ int main()
             cin >> nr;
             usun(head, nr);
             Sleep(2000);
-            system("cls");
         }
         else if (opcja[0] == '3')
         {
@@ -83,7 +103,10 @@ int main()
                 cout << "1 - szukaj po numerze, 2 - szukaj po pizzy: ";
                 getline(cin, opcja);
             }
-            if (opcja[0] == '1')
+            if (opcja.size() > 1) {
+                blad();
+            }
+            else if (opcja[0] == '1')
             {
                 cout << "podaj numer: ";
                 cin >> nr;
@@ -101,9 +124,11 @@ int main()
             programotwarty = false;
             wyczysc(head);
         }
+        else {
+            blad();
+        }
     }
     cout << "##komunikat_wyjscia##" << endl;
     system("pause");
     return 0;
 }
-
