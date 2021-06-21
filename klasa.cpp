@@ -50,7 +50,7 @@ Pizzeria* ZnajdzZamowienie(Pizzeria* head, int nr_zam) {
 		if (head->nr_zam == nr_zam) {
 			cout << setw(2) << setfill('0') << head->st.wHour << ":" << setw(2) << setfill('0') << head->st.wMinute << "\t" << head->nr_zam << ". Pizza: " << setw(15) << setfill(' ') << head->pizza << " ||" << setw(8) << setfill(' ')
 				<< " cena: " << setw(6) << setfill(' ') << head->cena << " ||" << setw(8) << setfill(' ') << "gdzie: ";
-			if (head->czyNaWynos == 1) {
+			if (head->czyNaWynos == 0) {
 				cout << " na miejscu\n";
 			}
 			else {
@@ -78,7 +78,7 @@ Pizzeria* ZnajdzZamowienie2(Pizzeria* head, string pizza) {
 		if (head->pizza == pizza) {
 			cout << setw(2) << setfill('0') << head->st.wHour << ":" << setw(2) << setfill('0') << head->st.wMinute << "\t" << head->nr_zam << ". Pizza: " << setw(15) << setfill(' ') << head->pizza << " ||" << setw(8) << setfill(' ')
 				<< " cena: " << setw(6) << setfill(' ') << head->cena << " ||" << setw(8) << setfill(' ') << "gdzie: ";
-			if (head->czyNaWynos == 1) {
+			if (head->czyNaWynos == 0) {
 				cout << " na miejscu \n";
 			}
 			else {
